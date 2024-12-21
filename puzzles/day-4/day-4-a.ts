@@ -1,53 +1,53 @@
+import Victor from 'victor';
 import { readData } from '../../shared.ts';
 import chalk from 'chalk';
+import { Grid } from '../lib/grid.ts';
 
 const word = 'XMAS';
 
 const directions = [
-  [1, 0],
-  [1, 1],
-  [0, 1],
-  [-1, 1],
-  [-1, 0],
-  [-1, -1],
-  [0, -1],
-  [1, -1],
+  new Victor(1, 0),
+  new Victor(1, 1),
+  new Victor(0, 1),
+  new Victor(-1, 1),
+  new Victor(-1, 0),
+  new Victor(-1, -1),
+  new Victor(0, -1),
+  new Victor(1, -1),
 ];
 
 export async function day4a(dataPath?: string) {
   const data = await readData(dataPath);
   let count = 0;
 
-  for (const [x, row] of data.entries()) {
-    for (const [y, value] of row.split('').entries()) {
-      if (value === word[0]) {
-        const allWordCoords = wordCoordsAtX(x, y);
-        for (const wordCoords of allWordCoords) {
-          let maybeWord = true;
+  const grid = Grid.fromLines(data, { letter: '.' }, (letter) => ({ letter }));
 
-          for (const [i, [wordX, wordY]] of wordCoords.entries()) {
-            if (maybeWord && data[wordX]?.[wordY] !== word[i]) {
-              maybeWord = false;
-            }
-            if (maybeWord) console.log(wordX, wordY, data[wordX]?.[wordY]);
-          }
+  grid.forEach((cell, point) => {
+    if (cell.letter !== word[0]) return;
 
-          if (maybeWord) count++;
+    const allWordCoords = wordCoordsAtX(point);
+
+    for (const wordCoords of allWordCoords) {
+      let maybeWord = true;
+
+      for (const [i, point] of wordCoords.entries()) {
+        if (maybeWord && grid.get(point)?.letter !== word[i]) {
+          maybeWord = false;
         }
       }
+
+      if (maybeWord) count++;
     }
-  }
+  });
 
   return count;
 }
 
-function countWordsAtX(data: string[], x: number, y: number) {}
-
-function wordCoordsAtX(x: number, y: number): [number, number][][] {
-  return directions.map(([xOffset, yOffset]) => {
-    const points: [number, number][] = [];
+function wordCoordsAtX(point: Victor): Victor[][] {
+  return directions.map((offset) => {
+    const points: Victor[] = [];
     for (let i = 0; i < word.length; i++) {
-      points.push([x + xOffset * i, y + yOffset * i]);
+      points.push(point.clone().add(offset.clone().multiplyScalar(i)));
     }
     return points;
   });
