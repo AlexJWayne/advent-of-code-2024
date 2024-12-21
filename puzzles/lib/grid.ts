@@ -56,11 +56,12 @@ export class Grid<T extends Record<PropertyKey, unknown>> {
     );
   }
 
-  print(getCell: (cell: T) => string | number): void {
+  print(getCell: (cell: T, point: Victor) => string | number): void {
     let out = '';
     for (let y = 0; y < this.size.y; y++) {
       for (let x = 0; x < this.size.x; x++) {
-        out += getCell(this.get({ x, y }));
+        const point = new Victor(x, y);
+        out += getCell(this.get(point), point);
       }
       out += '\n';
     }
