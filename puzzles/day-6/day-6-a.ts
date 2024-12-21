@@ -1,16 +1,15 @@
 import { readData } from '../../shared.ts';
-import chalk from 'chalk';
 import { Grid } from '../lib/grid.ts';
 import Victor from 'victor';
-import { dir } from 'console';
 
-type Cell = { obstacle: boolean; traversed: boolean };
+type Cell = {
+  obstacle: boolean;
+  traversed: boolean;
+};
 
 export async function day6a(dataPath?: string) {
   const data = await readData(dataPath);
-
   const { grid, guardPosition } = parseGrid(data);
-
   return walk(grid, guardPosition);
 }
 
@@ -28,10 +27,6 @@ function parseGrid(data: string[]) {
     },
   );
 
-  walk(grid, guardPosition);
-
-  debug(grid);
-
   return {
     guardPosition,
     grid,
@@ -43,17 +38,14 @@ function walk(grid: Grid<Cell>, initialPosition: Victor) {
   let direction = new Victor(0, -1);
 
   while (true) {
-    //console.log('---', position, direction);
-    //debug(grid);
     const nextPosition = position.clone().add(direction);
+
     if (!grid.has(nextPosition)) {
       grid.set(position, { traversed: true });
       break;
     }
 
-    const nextCell = grid.get(nextPosition);
-
-    if (nextCell.obstacle) {
+    if (grid.get(nextPosition).obstacle) {
       turnRight(direction);
       continue;
     }
@@ -61,6 +53,8 @@ function walk(grid: Grid<Cell>, initialPosition: Victor) {
     grid.set(position, { traversed: true });
     position = nextPosition;
   }
+
+  debug(grid);
 
   return [...grid.cells.values()].reduce(
     (acc, cell) => acc + (cell.traversed ? 1 : 0),
