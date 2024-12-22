@@ -1,11 +1,8 @@
-import { readData } from '../../shared.ts';
-import chalk from 'chalk';
-
-export async function day5a(dataPath?: string) {
-  const { dependencies, pages } = parse(await readData(dataPath));
+export function day5a(data: string[]): number {
+  const { dependencies, pages } = parse(data);
 
   const correctPageSequences = pages.filter((sequence) =>
-    isCorrect(dependencies, sequence)
+    isCorrect(dependencies, sequence),
   );
 
   return getAnswer(correctPageSequences);
@@ -34,7 +31,7 @@ function parse(data: string[]) {
 
 function isCorrect(
   dependencies: Map<number, Set<number>>,
-  pages: number[]
+  pages: number[],
 ): boolean {
   const pagesSet = new Set(pages);
   const satisfied = new Set<number>();
@@ -60,6 +57,3 @@ function getAnswer(sequences: number[][]) {
     return acc + sequence[middleIndex];
   }, 0);
 }
-
-const answer = await day5a();
-console.log(chalk.bgGreen('Your Answer:'), chalk.green(answer));

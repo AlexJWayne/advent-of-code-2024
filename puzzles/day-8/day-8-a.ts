@@ -1,9 +1,6 @@
-import { readData } from '../../shared.ts';
-import chalk from 'chalk';
 import { Point } from '../lib/grid.ts';
 
-export async function day8a(dataPath?: string) {
-  const data = await readData(dataPath);
+export function day8a(data: string[]): number {
   const { map, size } = parse(data);
   const antinodes = findAntinodes(map, size);
 
@@ -89,6 +86,3 @@ function vecSub(a: Point, b: Point): Point {
     y: a.y - b.y,
   };
 }
-
-const answer = await day8a();
-console.log(chalk.bgGreen('Your Answer:'), chalk.green(answer));

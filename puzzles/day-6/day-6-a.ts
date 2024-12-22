@@ -1,4 +1,3 @@
-import { readData } from '../../shared.ts';
 import { Grid } from '../lib/grid.ts';
 import Victor from 'victor';
 
@@ -7,8 +6,7 @@ type Cell = {
   traversed: boolean;
 };
 
-export async function day6a(dataPath?: string) {
-  const data = await readData(dataPath);
+export function day6a(data: string[]): number {
   const { grid, guardPosition } = parseGrid(data);
   return walk(grid, guardPosition);
 }
@@ -76,6 +74,3 @@ function debug(grid: Grid<Cell>): void {
     return '.';
   });
 }
-
-const answer = await day6a();
-console.log('Your Answer:', answer);

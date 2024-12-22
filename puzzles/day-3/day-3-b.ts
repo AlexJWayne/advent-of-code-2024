@@ -1,9 +1,6 @@
-import { readData } from '../../shared.ts';
-import chalk from 'chalk';
-
-export async function day3b(dataPath?: string) {
-  const data = (await readData(dataPath)).join('');
+export function day3b(data: string[]): number {
   const matches = data
+    .join()
     .replace(/don't\(\).*?(do\(\)|$)/gm, '')
     .match(/mul\(\d{1,3},\d{1,3}\)/g);
 
@@ -12,6 +9,3 @@ export async function day3b(dataPath?: string) {
     return acc + parseInt(x) * parseInt(y);
   }, 0);
 }
-
-const answer = await day3b();
-console.log(chalk.bgGreen('Your Answer:'), chalk.green(answer));

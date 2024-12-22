@@ -1,11 +1,5 @@
-import { runInThisContext } from 'vm';
-import { readData } from '../../shared.ts';
-import chalk from 'chalk';
-
-export async function day2b(dataPath?: string) {
-  const lines = await readData(dataPath);
-
-  const safeLevelCount = lines.reduce((acc, line, i) => {
+export function day2b(data: string[]): number {
+  const safeLevelCount = data.reduce((acc, line) => {
     if (!line) return acc;
 
     let values = line.split(' ').map((n) => parseInt(n));
@@ -38,6 +32,3 @@ function check([current, ...values]: number[]) {
 
   return true;
 }
-
-const answer = await day2b();
-console.log(chalk.bgGreen('Your Answer:'), chalk.green(answer));

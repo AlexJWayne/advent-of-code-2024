@@ -1,10 +1,6 @@
-import { readData } from '../../shared.ts';
-import chalk from 'chalk';
-
 type Equation = { result: number; terms: number[] };
 
-export async function day7a(dataPath?: string) {
-  const data = await readData(dataPath);
+export function day7a(data: string[]): number {
   const vaildEquations = parse(data).filter(isValid);
   const sum = vaildEquations.reduce((acc, { result }) => acc + result, 0);
   return sum;
@@ -31,6 +27,3 @@ function isValid({ result, terms }: Equation) {
 
   return false;
 }
-
-const answer = await day7a();
-console.log(chalk.bgGreen('Your Answer:'), chalk.green(answer));

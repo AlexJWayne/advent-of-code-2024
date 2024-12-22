@@ -1,10 +1,3 @@
-import { readData } from '../../shared.ts';
-import chalk from 'chalk';
-
-export async function day15a(dataPath?: string) {
-  const data = await readData(dataPath);
+export function day15a(data: string[]): number {
   return 0;
 }
-
-const answer = await day15a();
-console.log(chalk.bgGreen('Your Answer:'), chalk.green(answer));

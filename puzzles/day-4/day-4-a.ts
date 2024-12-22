@@ -1,6 +1,4 @@
 import Victor from 'victor';
-import { readData } from '../../shared.ts';
-import chalk from 'chalk';
 import { Grid } from '../lib/grid.ts';
 
 const word = 'XMAS';
@@ -16,8 +14,7 @@ const directions = [
   new Victor(1, -1),
 ];
 
-export async function day4a(dataPath?: string) {
-  const data = await readData(dataPath);
+export function day4a(data: string[]): number {
   let count = 0;
 
   const grid = Grid.fromLines(data, { letter: '.' }, (letter) => ({ letter }));
@@ -52,6 +49,3 @@ function wordCoordsAtX(point: Victor): Victor[][] {
     return points;
   });
 }
-
-const answer = await day4a();
-console.log(chalk.bgGreen('Your Answer:'), chalk.green(answer));

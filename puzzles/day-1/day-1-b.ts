@@ -1,8 +1,4 @@
-import { readData } from '../../shared.ts';
-import chalk from 'chalk';
-
-export async function day2a(dataPath?: string) {
-  const data = await readData(dataPath);
+export function day1b(data: string[]): number {
   const [aValues, bValues] = data.reduce<[number[], number[]]>(
     (acc, val) => {
       const [a, b] = val.split(/\D+/).map(Number);
@@ -10,7 +6,7 @@ export async function day2a(dataPath?: string) {
       acc[1].push(b);
       return acc;
     },
-    [[], []]
+    [[], []],
   );
 
   const bCounts = bValues.reduce((acc, bValue) => {
@@ -22,6 +18,3 @@ export async function day2a(dataPath?: string) {
     return acc + aValue * (bCounts.get(aValue) ?? 0);
   }, 0);
 }
-
-const answer = await day2a();
-console.log(chalk.bgGreen('Your Answer:'), chalk.green(answer));
