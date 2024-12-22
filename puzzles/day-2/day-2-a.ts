@@ -1,5 +1,5 @@
 export function day2a(data: string[]): number {
-  const safeLevelCount = data.reduce((acc, line, i) => {
+  const safeLevelCount = data.reduce((acc, line) => {
     if (!line) return acc;
 
     let [current, ...values] = line.split(' ').map((n) => parseInt(n));
