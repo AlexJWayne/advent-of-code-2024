@@ -16,8 +16,6 @@ export function day2a(data: string[]): number {
       current = value;
     }
 
-    // console.log(line, ' :: ', found);
-
     return acc + found;
   }, 0);
 
