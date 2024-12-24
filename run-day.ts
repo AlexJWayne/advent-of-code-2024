@@ -9,13 +9,17 @@ export async function run() {
     await readFile(`${pathPrefix}.${sample === 's' ? 'sample-' : ''}data.txt`)
   )
     .toString()
+    .trim()
     .split('\n');
 
   const dayModule = await import(`${pathPrefix}.ts`);
 
   const calculation: (data: string[]) => number = dayModule[`day${day}${part}`];
+
+  const start = performance.now();
   const answer = calculation(data);
-  console.log(chalk.green('Answer:'), answer);
+  const elapsed = performance.now() - start;
+  console.log(chalk.green('Answer:'), answer, chalk.gray(`in ${elapsed}ms`));
 }
 
 run();

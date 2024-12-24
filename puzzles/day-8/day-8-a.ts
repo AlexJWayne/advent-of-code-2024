@@ -1,4 +1,4 @@
-import { Grid, Point } from '../lib/grid.ts';
+import { Grid } from '../lib/grid.ts';
 
 type Cell = {
   antenna: string | null;
