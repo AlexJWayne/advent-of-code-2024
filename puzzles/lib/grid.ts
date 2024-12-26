@@ -1,6 +1,5 @@
 import Victor from 'victor';
-
-export type Point = { x: number; y: number };
+import { Point } from './vector.ts';
 
 export class Grid<
   T extends Record<PropertyKey, unknown>,
@@ -106,6 +105,6 @@ export class Grid<
   }
 }
 
-function toKey({ x, y }: Point): string {
+export function toKey({ x, y }: Point): string {
   return `${x},${y}`;
 }
